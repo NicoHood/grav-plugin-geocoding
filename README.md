@@ -42,6 +42,8 @@ Here is the default configuration and an explanation of available options:
 
 ```yaml
 enabled: true
+nominatim_host: 'https://nominatim.openstreetmap.org/search'
+country_code: ''
 ```
 
 Note that if you use the Admin Plugin, a file with your configuration named geocoding.yaml will be saved in the `user/config/plugins/`-folder once the configuration is saved in the Admin.
