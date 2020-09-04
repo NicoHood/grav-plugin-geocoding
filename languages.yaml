@@ -1,4 +1,7 @@
 en:
   PLUGIN_GEOCODING:
-    TEXT_VARIABLE: Text Variable
-    TEXT_VARIABLE_HELP: Text to add to the top of a page
+    NOMINATIM_HOST: Nominatim Server
+    NOMINATIM_HOST_HELP: The base server url of a Nominatim server instance.
+
+    COUNTRY_CODE: Country Code
+    COUNTRY_CODE_HELP: Specify a country specific area to search in (de, fr, uk). Leave empty if no country should be preferred.

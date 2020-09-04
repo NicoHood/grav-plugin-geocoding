@@ -1,7 +1,3 @@
 enabled: true
-
-# Must be enabled per page
-#active: false
-# TODO only for debugging
-active: true
-text_var: Custom Text added by the **Geocoding** plugin (disable plugin to remove)
+nominatim_host: 'https://nominatim.openstreetmap.org/search'
+country_code: ''

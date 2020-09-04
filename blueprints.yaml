@@ -1,18 +1,18 @@
 name: Geocoding
 slug: geocoding
 type: plugin
-version: 0.1.0
+version: 1.0.0
 description: Converts addresses into geographic coordinates
-icon: plug
+icon: globe
 author:
   name: NicoHood
   email: grav@nicohood.de
 homepage: https://github.com/NicoHood/grav-plugin-geocoding
-demo: http://demo.yoursite.com
-keywords: grav, plugin, etc
+#demo: http://demo.yoursite.com
+keywords: grav, plugin, geocoding, coordinates, map, search, latitude, longitude, world, country, location, city
 bugs: https://github.com/NicoHood/grav-plugin-geocoding/issues
 docs: https://github.com/NicoHood/grav-plugin-geocoding/blob/develop/README.md
-license: MIT
+license: GPL3
 
 dependencies:
   - { name: grav, version: '>=1.6.0' }
@@ -30,7 +30,12 @@ form:
         0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
-    text_var:
+    nominatim_host:
       type: text
-      label: PLUGIN_GEOCODING.TEXT_VARIABLE
-      help: PLUGIN_GEOCODING.TEXT_VARIABLE_HELP
+      default: https://nominatim.openstreetmap.org/search
+      label: PLUGIN_GEOCODING.NOMINATIM_HOST
+      help: PLUGIN_GEOCODING.NOMINATIM_HOST_HELP
+    country_code:
+      type: text
+      label: PLUGIN_GEOCODING.COUNTRY_CODE
+      help: PLUGIN_GEOCODING.COUNTRY_CODE_HELP

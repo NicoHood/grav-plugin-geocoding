@@ -1,8 +1,12 @@
-# Geocoding Plugin
+# Grav Geocoding Plugin
 
-**This README.md file should be modified to describe the features, installation, configuration, and general usage of the plugin.**
+The **Geocoding** Plugin is an extension for [Grav CMS](http://github.com/getgrav/grav). Converts addresses into geographic coordinates.
 
-The **Geocoding** Plugin is an extension for [Grav CMS](http://github.com/getgrav/grav). Converts addresses into geographic coordinates
+## Features
+* Geocoding: convert human readable address into coordinates (lat/lon)
+* Use Grav builtin caching
+* Hide search results from cache via sha256 hashes
+* Prevent XSS by validating/encoding given input
 
 ## Installation
 
@@ -23,7 +27,7 @@ To install the plugin manually, download the zip-version of this repository and 
 You should now have all the plugin files under
 
     /your/site/grav/user/plugins/geocoding
-	
+
 > NOTE: This plugin is a modular component for Grav which may require other plugins to operate, please see its [blueprints.yaml-file on GitHub](https://github.com/nico-hood/grav-plugin-geocoding/blob/master/blueprints.yaml).
 
 ### Admin Plugin
@@ -44,13 +48,21 @@ Note that if you use the Admin Plugin, a file with your configuration named geoc
 
 ## Usage
 
-**Describe how to use the plugin.**
+Go to `www.yourpage.com/index.html?location=berlin` to test the example below.
 
-## Credits
+```html
+{% set location_query = uri.query('location') %}
+{% set location = geocoding.getLocation(location_query) %}
 
-**Did you incorporate third-party code? Want to thank somebody?**
-
-## To Do
-
-- [ ] Future plans, if any
-
+{% if location != null %}
+<a href="https://www.google.com/maps/place/{{ location.lat }},{{ location.lon }}">
+  {{ location.name }}
+</a>
+{% elseif location_query != null %}
+<div class="notices red">
+  <p>
+    Location "{{ location_query }}" not found.
+  </p>
+</div>
+{% endif %}
+```
