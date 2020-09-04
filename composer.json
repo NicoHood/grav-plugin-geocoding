@@ -1,0 +1,29 @@
+{
+  "name": "nicohood/geocoding",
+  "type": "grav-plugin",
+  "description": "Converts addresses into geographic coordinates",
+  "keywords": ["plugin"],
+  "homepage": "https://github.com/NicoHood/grav-plugin-geocoding",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "NicoHood",
+      "email": "grav@nicohood.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Grav\\Plugin\\Geocoding\\": "classes/"
+    },
+    "classmap":  ["geocoding.php"]
+  },
+  "config": {
+    "platform": {
+      "php": "7.1.3"
+    }
+  }
+}
