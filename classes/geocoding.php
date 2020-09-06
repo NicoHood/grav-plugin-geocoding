@@ -49,8 +49,8 @@ class Geocoding
 
             // Call Nominatim REST API
             $request = $this->nominatim_host . $this->nominatim_api;
-            $request = str_replace('{QUERY}', urlencode($query), $request);
-            $request = str_replace('{COUNTRY}', urlencode($this->country_code), $request);
+            $request = str_replace('{QUERY}', rawurlencode($query), $request);
+            $request = str_replace('{COUNTRY}', rawurlencode($this->country_code), $request);
             $response = Response::get($request);
             $data = json_decode($response);
 
