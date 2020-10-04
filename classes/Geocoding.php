@@ -1,5 +1,5 @@
 <?php
-namespace Grav\Plugin;
+namespace Grav\Plugin\Geocoding;
 
 use Grav\Common\GPM\Response;
 use Grav\Common\Grav;
