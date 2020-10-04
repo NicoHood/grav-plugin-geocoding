@@ -80,11 +80,24 @@ class Geocoding
     * @param float $longitudeFrom Longitude of start point in [deg decimal]
     * @param float $latitudeTo Latitude of target point in [deg decimal]
     * @param float $longitudeTo Longitude of target point in [deg decimal]
-    * @param float $earthRadius Mean earth radius in [m]
     * @return float Distance between points in [m] (same as earthRadius)
     */
-    public static function getDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
+    public function getDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
     {
+        // Cache key allows us to invalidate all cache on configuration changes.
+        $cache = $this->cache;
+        $cache_id = hash('sha256', 'geocoding-distance' . $cache->getKey() .
+          '-' . $latitudeFrom . '-' . $longitudeFrom .
+          '-' . $latitudeTo . '-' . $longitudeTo);
+
+        // Cache gecoding results, but store them as hash
+        if ($distance = $cache->fetch($cache_id)) {
+            return $distance;
+        }
+
+        // Earth radius in [m]
+        $earthRadius = 6371000;
+
         // convert from degrees to radians
         $latFrom = deg2rad($latitudeFrom);
         $lonFrom = deg2rad($longitudeFrom);
@@ -97,6 +110,11 @@ class Geocoding
         $b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
 
         $angle = atan2(sqrt($a), $b);
-        return $angle * $earthRadius;
+        $distance = $angle * $earthRadius;
+
+        // Store result in cache for 7 days
+        $cache->save($cache_id, $distance, 604800);
+
+        return $distance;
     }
 }
