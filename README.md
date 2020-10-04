@@ -48,6 +48,8 @@ country_code: ''
 
 Note that if you use the Admin Plugin, a file with your configuration named geocoding.yaml will be saved in the `user/config/plugins/`-folder once the configuration is saved in the Admin.
 
+**By using the Openstreetmap Nominatim service you aggree to their [usage policy](https://operations.osmfoundation.org/policies/nominatim/)**
+
 ## Usage
 
 Go to `www.yourpage.com/index.html?location=berlin` to test the example below.
