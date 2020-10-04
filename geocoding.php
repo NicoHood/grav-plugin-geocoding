@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin;
 
+use Composer\Autoload\ClassLoader;
 use Grav\Common\Plugin;
 use Grav\Plugin\Geocoding;
 
@@ -24,9 +25,20 @@ class GeocodingPlugin extends Plugin
     {
         return [
             'onPluginsInitialized' => [
+                ['autoload', 100000], // TODO: Remove when plugin requires Grav >=1.7
                 ['onPluginsInitialized', 0]
             ]
         ];
+    }
+
+    /**
+    * Composer autoload.
+    *is
+    * @return ClassLoader
+    */
+    public function autoload(): ClassLoader
+    {
+        return require __DIR__ . '/vendor/autoload.php';
     }
 
     /**
@@ -51,8 +63,6 @@ class GeocodingPlugin extends Plugin
      */
     public function onTwigSiteVariables()
     {
-        require_once __DIR__ . '/classes/geocoding.php';
-
         $twig = $this->grav['twig'];
         $twig->twig_vars['geocoding'] = new Geocoding();
     }
