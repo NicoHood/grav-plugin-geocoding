@@ -1,3 +1,13 @@
+# v1.1.1
+##  04/10/2020
+
+1. 
+    * Added Autoloader
+2. 
+    * Changed Namespace
+3. 
+    * Improved cache handling
+
 # v1.1.0
 ##  06/09/2020
 
