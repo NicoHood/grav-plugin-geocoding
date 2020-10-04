@@ -39,11 +39,12 @@ class Geocoding
     public function getLocation(string $query = null)
     {
         try {
+            // Cache key allows us to invalidate all cache on configuration changes.
             $cache = $this->cache;
-            $hash = hash('sha256', $query);
+            $cache_id = hash('sha256', 'geocoding-location' . $cache->getKey() . '-' . $query);
 
             // Cache gecoding results, but store them as hash
-            if ($location = $cache->fetch($hash)) {
+            if ($location = $cache->fetch($cache_id)) {
                 return $location;
             }
 
@@ -61,8 +62,8 @@ class Geocoding
                 "name" => $data[0]->display_name
             );
 
-            // Store result in cache
-            $cache->save($hash, $location);
+            // Store result in cache for 7 days
+            $cache->save($cache_id, $location, 604800);
             return $location;
         }
 
