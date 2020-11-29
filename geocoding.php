@@ -26,9 +26,23 @@ class GeocodingPlugin extends Plugin
         return [
             'onPluginsInitialized' => [
                 ['autoload', 100000], // TODO: Remove when plugin requires Grav >=1.7
+                ['register', 1000],
                 ['onPluginsInitialized', 0]
             ]
         ];
+    }
+
+    /**
+     * Register the service
+     */
+    public function register()
+    {
+        $this->grav['geocoding'] = function ($c) {
+            /** @var Config $config */
+            $config = $c['config'];
+
+            return new Geocoding($config->get('plugins.geocoding'));
+        };
     }
 
     /**
@@ -65,6 +79,6 @@ class GeocodingPlugin extends Plugin
     public function onTwigSiteVariables()
     {
         $twig = $this->grav['twig'];
-        $twig->twig_vars['geocoding'] = new Geocoding();
+        $twig->twig_vars['geocoding'] = $this->grav['geocoding'];
     }
 }

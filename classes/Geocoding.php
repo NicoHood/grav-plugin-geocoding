@@ -3,6 +3,7 @@ namespace Grav\Plugin\Geocoding;
 
 use Grav\Common\GPM\Response;
 use Grav\Common\Grav;
+use Grav\Common\Config\Config;
 use Grav\Common\Language\Language;
 
 class Geocoding
@@ -19,15 +20,17 @@ class Geocoding
     // Example: https://nominatim.openstreetmap.org/search/berlin?format=jsonv2&limit=1&countrycodes=de&addressdetails=1
     private $nominatim_api = '/{QUERY}?format=jsonv2&limit=1&countrycodes={COUNTRY}&addressdetails=1';
 
+    /** @var Config $config */
+    protected $config;
 
-    public function __construct()
+    public function __construct($config)
     {
         $this->grav = Grav::instance();
         $this->cache = $this->grav['cache'];
-        $this->config = $this->grav['config'];
+        $this->config = new Config($config);
 
-        $this->nominatim_host = $this->config->get('plugins.geocoding.nominatim_host', 'https://nominatim.openstreetmap.org/search');
-        $this->country_code = $this->config->get('plugins.geocoding.country_code', '');
+        $this->nominatim_host = $this->config->get('nominatim_host', 'https://nominatim.openstreetmap.org/search');
+        $this->country_code = $this->config->get('country_code', '');
     }
 
     /**
@@ -36,8 +39,12 @@ class Geocoding
      *
      * @return array
      */
-    public function getLocation(string $query = null)
+    public function getLocation(string $query = null, string $country_code = null) : GeoLocation
     {
+        if ($country_code === null) {
+            $country_code = $this->country_code;
+        }
+
         try {
             // Cache key allows us to invalidate all cache on configuration changes.
             $cache = $this->cache;
@@ -51,16 +58,14 @@ class Geocoding
             // Call Nominatim REST API
             $request = $this->nominatim_host . $this->nominatim_api;
             $request = str_replace('{QUERY}', rawurlencode($query), $request);
-            $request = str_replace('{COUNTRY}', rawurlencode($this->country_code), $request);
+            $request = str_replace('{COUNTRY}', rawurlencode($country_code), $request);
             $response = Response::get($request);
             $data = json_decode($response);
 
-            // Format result
-            $location = array(
-                "lat" => $data[0]->lat,
-                "lon" => $data[0]->lon,
-                "name" => $data[0]->display_name
-            );
+            $location = new GeoLocation();
+            $location->lat = $data[0]->lat;
+            $location->lon = $data[0]->lon;
+            $location->name = $data[0]->display_name;
 
             // Store result in cache for 7 days
             $cache->save($cache_id, $location, 604800);
