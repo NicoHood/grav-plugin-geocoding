@@ -39,8 +39,13 @@ class Geocoding
      *
      * @return array
      */
-    public function getLocation(string $query = null, string $country_code = null) : ?GeoLocation
+    public function getLocation(string $query, string $country_code = null) : ?GeoLocation
     {
+        // Stop if query is empty
+        if (empty($query)) {
+            return null;
+        }
+
         if ($country_code === null) {
             $country_code = $this->country_code;
         }
@@ -61,6 +66,11 @@ class Geocoding
             $request = str_replace('{COUNTRY}', rawurlencode($country_code), $request);
             $response = Response::get($request);
             $data = json_decode($response);
+
+            // Check for a valid result
+            if (!array_key_exists(0, $data)) {
+                return null;
+            }
 
             $location = new GeoLocation();
             $location->lat = $data[0]->lat;
