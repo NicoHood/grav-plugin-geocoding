@@ -39,7 +39,7 @@ class Geocoding
      *
      * @return array
      */
-    public function getLocation(string $query = null, string $country_code = null) : GeoLocation
+    public function getLocation(string $query = null, string $country_code = null) : ?GeoLocation
     {
         if ($country_code === null) {
             $country_code = $this->country_code;

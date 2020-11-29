@@ -1,7 +1,7 @@
 name: Geocoding
 slug: geocoding
 type: plugin
-version: 1.2.0
+version: 1.2.1
 description: Converts addresses into geographic coordinates
 icon: globe
 author:
