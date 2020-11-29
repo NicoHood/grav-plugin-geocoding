@@ -50,6 +50,11 @@ Note that if you use the Admin Plugin, a file with your configuration named geoc
 
 **By using the Openstreetmap Nominatim service you aggree to their [usage policy](https://operations.osmfoundation.org/policies/nominatim/)**
 
+You can directly debug [Nominatim API](https://nominatim.org/release-docs/develop/api/Search/) request using your browser:
+```
+https://nominatim.openstreetmap.org/search/berlin?format=jsonv2&limit=1
+```
+
 ## Usage
 
 Go to `www.yourpage.com/index.html?location=berlin` to test the example below.
