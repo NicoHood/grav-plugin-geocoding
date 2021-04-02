@@ -2,6 +2,8 @@
 
 The **Geocoding** Plugin is an extension for [Grav CMS](http://github.com/getgrav/grav). Converts addresses into geographic coordinates.
 
+<a href="https://www.buymeacoffee.com/nicohood" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
 ## Features
 * Geocoding: convert human readable address into coordinates (lat/lon)
 * Use Grav builtin caching
