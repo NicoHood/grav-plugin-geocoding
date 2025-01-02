@@ -1,3 +1,10 @@
+# v1.2.2
+##  02/01/2025
+
+1.
+    * Fix API Query call with API Update
+    * Fix crash when result is null
+
 # v1.2.1
 ##  29/11/2020
 
