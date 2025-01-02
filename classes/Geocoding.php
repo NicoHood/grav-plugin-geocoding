@@ -17,8 +17,8 @@ class Geocoding
     // Gecoding Nominatim REST API
     // https://nominatim.org/release-docs/develop/api/Search/
     // https://nominatim.org/release-docs/develop/api/Output/
-    // Example: https://nominatim.openstreetmap.org/search/berlin?format=jsonv2&limit=1&countrycodes=de&addressdetails=1
-    private $nominatim_api = '/{QUERY}?format=jsonv2&limit=1&countrycodes={COUNTRY}&addressdetails=1';
+    // Example: https://nominatim.openstreetmap.org/search?q=berlin&format=jsonv2&limit=1&countrycodes=de&addressdetails=1
+    private $nominatim_api = '?q={QUERY}&format=jsonv2&limit=1&countrycodes={COUNTRY}&addressdetails=1';
 
     /** @var Config $config */
     protected $config;
