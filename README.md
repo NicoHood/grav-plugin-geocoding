@@ -54,7 +54,7 @@ Note that if you use the Admin Plugin, a file with your configuration named geoc
 
 You can directly debug [Nominatim API](https://nominatim.org/release-docs/develop/api/Search/) request using your browser:
 ```
-https://nominatim.openstreetmap.org/search/berlin?format=jsonv2&limit=1
+https://nominatim.openstreetmap.org/search?q=berlin&format=jsonv2
 ```
 
 ## Usage
